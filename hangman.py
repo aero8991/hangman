@@ -55,24 +55,38 @@ def check_letter_in_word(word):
     score = 0
     wrong_letters = []
     computer_choice = [x.lower() for x in word]
-    correct_letters = []
-    final_word = []
+    temp_string = ""
+
+    reveal = "_"*len(word)
+    print(reveal)
   
-    while lives >= 0 | score <= len(word) + 1:
-        dashes_for_word(word, letter_guess=None)
+    while lives >= 0 | score <= (len(word) + 1):
+   
+        # dashes_for_word(word, letter_guess=None)
         user_choice = ask_a_letter()
         
         if user_choice in wrong_letters:
             print('already guessed that letter, try another one')
             
         elif user_choice in computer_choice:
-                print("Yes")
-                letters = dashes_for_word_test2(word, user_choice)
-                final_word.append(letters)
-                correct_letters.append(user_choice)
-                print(score)
-                print(final_word)
-                score += 1
+            word = [x for x in word]
+            # reveal = "_"*len(word)
+            temp_string = ""
+            # reveal2 = "_"*len(word)
+            
+    # checker = reveal[0] + "_" + "_" + "_" + "_"
+    # letters = []
+            guesses = {}
+            for i, v in enumerate(word):
+                guesses[v] = '_'
+                if v == user_choice:
+                    temp_string += user_choice
+                    score += 1
+                else:
+                    temp_string +=reveal[i]
+                
+            reveal = temp_string
+            print(reveal)
         elif user_choice not in wrong_letters:
             wrong_letters.append(user_choice)
             print(f'Wrong letter list: {wrong_letters}')
@@ -104,11 +118,13 @@ def dashes_for_word_test(word):
     letters = []
     word_count = 0 
     spaces = 0
+    guesses = {}
     while word_count < len(word) + 1 and spaces < len(word):
         
         for i, v in enumerate(word):
             dashes = v.replace(v, '__')
             letters.append(dashes)
+            guesses[v] = '_'
             spaces += 1
         for w, x in enumerate(word):
 
@@ -124,12 +140,10 @@ def dashes_for_word_test(word):
 
         # print(i, v)
 
-    print(letters )   
+    print(letters) 
+    print(guesses)  
 
     
-
-
-
 
 
 
@@ -147,29 +161,52 @@ def dashes_for_word_test(word):
 
 def dashes_for_word_test2(word, letter):
     word = [x for x in word]
-    #     # print("_")
-    # print(letters)
-    letters = []
-    word_count = 0 
-    spaces = 0
+    reveal = "_"*len(word)
+    # reveal2 = "_"*len(word)
+    temp_string = ""
+    # checker = reveal[0] + "_" + "_" + "_" + "_"
+    # letters = []
+    guesses = {}
     for i, v in enumerate(word):
-        if letter == v:
-            letters.append(v)
+        guesses[v] = '_'
+        if v == letter:
+            temp_string += letter
             
         else:
-            dashes = v.replace(v, '__')
-            letters.append(dashes)
-        print(i,v)
+            temp_string +=reveal[i]
             
 
-    print(letters)
-    return letters
+    # print(temp_string)
+    # print(reveal)
+    reveal = temp_string
+    # reveal2 = checker
+
+    print(reveal)
+    print([guesses, reveal])
+    # print(reveal2)
+    # print(len(reveal))
+      
+        # if letter == v:
+        #     letters.append(v)
+
+        #     #not sure yet about the append part here! 
+            
+        # else:
+        #     dashes = v.replace(v, '__')
+        #     letters.append([dashes, i, v])
+        # # print(i,v)
+            
+    # print(letters)
+    # print(guesses)
+    return reveal
 
 
-#dashes_for_word_test2('whiskey', "h")
+#dashes_for_word_test2('pizza', "z")
 
 
-check_letter_in_word('whiskey')
+check_letter_in_word('pizza')
+
+
         
 
      
